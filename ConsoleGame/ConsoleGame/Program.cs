@@ -12,12 +12,12 @@ class Program
         string consoleInputWH = null;
         while ((!int.TryParse(consoleInputWH, out wHight)) || (wHight > 84) || (wHight < 15))
         {
-            Console.WriteLine("Enter the Hight of the window - 15 is minimum, 84 is maximum");
+            Console.Write("Enter the Hight of the window - 15 is minimum, 84 is maximum");
             consoleInputWH = Console.ReadLine();
         }
         Console.WindowHeight = wHight;
         Console.BufferHeight = Console.WindowHeight;
-        Console.WriteLine("Enter the Width of the window - 60 is minimum, 240 is maximum");
+        Console.Write("Enter the Width of the window - 60 is minimum, 240 is maximum");
         int wWidth = 70;
         string consoleInputWW = Console.ReadLine();
         while ((!int.TryParse(consoleInputWW, out wWidth)) || (wWidth > 240) || (wWidth < 60))
