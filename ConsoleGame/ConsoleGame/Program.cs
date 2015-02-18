@@ -7,7 +7,7 @@ class Program
     static void Main()
     {
         //User can setup the size of window
-        Console.WriteL("Enter the size of the game window\nEnter the Hight of the window - 15 is minimum, 84 is maximum: ");
+        Console.Write("Enter the size of the game window\nEnter the Hight of the window - 15 is minimum, 84 is maximum: ");
         int wHight = 15;
         string consoleInputWH = null;
         while ((!int.TryParse(consoleInputWH, out wHight)) || (wHight > 84) || (wHight < 15))
