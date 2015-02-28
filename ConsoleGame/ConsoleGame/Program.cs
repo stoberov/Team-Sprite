@@ -97,10 +97,11 @@ class Program
                 }
 
             }
+
             cars = newList;
             Console.Clear();
 
-            PrintCar(car, y, x);
+            
             //Thread.Sleep(100);
 
 
@@ -108,7 +109,7 @@ class Program
             {
                 PrintCar(carss.x, carss.y, carss.symbol, carss.color);
             }
-
+            PrintCar(car, y, x);
             Thread.Sleep(100);
 
             //Hide cursor
