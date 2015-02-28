@@ -45,11 +45,14 @@ class Program
                 while (Console.KeyAvailable) Console.ReadKey(true);
                 if (pressed.Key == ConsoleKey.LeftArrow)
                 {
-                    if (x > 0) --x;
+                    
+                    if (x > 5) --x;
+
+
                 }
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
-                    if (x < Console.WindowWidth - car.Length * 2) ++x;
+                    if (x < Console.WindowWidth-5- car.Length * 2) ++x;
                 }
             }
             PrintCar(car, y, x);
