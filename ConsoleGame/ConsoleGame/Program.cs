@@ -14,17 +14,17 @@ class Program
         //Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
         Console.BufferHeight = Console.WindowHeight;
-<<<<<<< HEAD
+
         //Test vvn052
         //Test vvn053
         //Hide cursor
         Console.CursorVisible = false;
         Console.WriteLine();
         
-=======
+
 
         //Logo
->>>>>>> origin/master
+
         PrintTelerikAcademyLogo();
 
         //The car
