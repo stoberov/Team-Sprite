@@ -9,7 +9,7 @@ class Program
         //User can setup the size of window
                
         Console.BufferHeight = Console.WindowHeight = 50;              
-        Console.BufferWidth = Console.WindowWidth = 60;
+        Console.BufferWidth = Console.WindowWidth = 50;
 
         //Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
