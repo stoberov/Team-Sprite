@@ -34,7 +34,8 @@ class Program
 
         //Hide cursor
         Console.CursorVisible = false;
-
+        Console.WriteLine();
+        
         PrintTelerikAcademyLogo();
     }
 
