@@ -6,19 +6,19 @@ class Program
 {
     static void Main()
     {
-        const int winWidth = 80;
-        const int winHeight = 40;
-
-        //Setting console borders
-        Console.SetWindowSize(winWidth, winHeight);
+        //User can setup the size of window
+               
+        Console.BufferHeight = Console.WindowHeight = 50;              
+        Console.BufferWidth = Console.WindowWidth = 50;
 
         //Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
         Console.BufferHeight = Console.WindowHeight;
-
+        //Test vvn050
         //Hide cursor
         Console.CursorVisible = false;
-
+        Console.WriteLine();
+        
         PrintTelerikAcademyLogo();
     }
 
@@ -56,5 +56,6 @@ class Program
 
         // Clean the console to begin the game
         Console.Clear();
+        Console.WriteLine("iliev");
     }
 }
