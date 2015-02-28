@@ -7,26 +7,9 @@ class Program
     static void Main()
     {
         //User can setup the size of window
-        Console.Write("Enter the size of the game window\nEnter the Hight of the window - 15 is minimum, 84 is maximum: ");
-        int wHight = 15;
-        string consoleInputWH = null;
-        while ((!int.TryParse(consoleInputWH, out wHight)) || (wHight > 84) || (wHight < 15))
-        {
-            Console.Write("Enter the Hight of the window - 15 is minimum, 84 is maximum: ");
-            consoleInputWH = Console.ReadLine();
-        }
-        Console.WindowHeight = wHight;
-        Console.BufferHeight = Console.WindowHeight;
-        Console.Write("Enter the Width of the window - 60 is minimum, 240 is maximum: ");
-        int wWidth = 70;
-        string consoleInputWW = Console.ReadLine();
-        while ((!int.TryParse(consoleInputWW, out wWidth)) || (wWidth > 240) || (wWidth < 60))
-        {
-            Console.Write("Enter the Hight of the window - 60 is minimum, 240 is maximum: ");
-            consoleInputWW = Console.ReadLine();
-        }
-        Console.WindowWidth = wWidth;
-        Console.BufferWidth = Console.WindowWidth;
+               
+        Console.BufferHeight = Console.WindowHeight = 50;              
+        Console.BufferWidth = Console.WindowWidth = 50;
 
         //Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
