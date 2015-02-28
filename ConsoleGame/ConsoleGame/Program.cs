@@ -7,8 +7,8 @@ class Program
     static void Main()
     {
         //User can setup the size of window
-               
-        Console.BufferHeight = Console.WindowHeight = 50;              
+
+        Console.BufferHeight = Console.WindowHeight = 50;
         Console.BufferWidth = Console.WindowWidth = 50;
 
         //Remove Scrolls
@@ -18,7 +18,7 @@ class Program
         //Hide cursor
         Console.CursorVisible = false;
         Console.WriteLine();
-        
+
         PrintTelerikAcademyLogo();
     }
 
@@ -64,5 +64,5 @@ class Program
         Console.WriteLine("Score:");
         Console.WriteLine("Lives:");
     }
-    
+
 }
