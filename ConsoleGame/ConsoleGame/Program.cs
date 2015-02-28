@@ -1,4 +1,6 @@
-﻿using System;
+﻿// STOYAN: Add Intro + Logo + Start Menu + Add Playlist Background Music
+
+using System;
 using System.IO;
 using System.Threading;
 
