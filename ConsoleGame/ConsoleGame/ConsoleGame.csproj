@@ -48,6 +48,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="house_impact.wav" />
+    <Content Include="purple-hills-short.wav" />
+    <Content Include="technology.wav" />
     <Content Include="telerik-logo.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

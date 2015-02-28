@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Media;
 using System.Threading;
 
 class Program
@@ -12,6 +13,14 @@ class Program
         public string symbol;
         public ConsoleColor color;
     }
+    
+    // Variables
+    static string[] playlist = {
+                                   @"..\..\purple-hills-short.wav",
+                                        @"..\..\house_impact.wav",
+                                        @"..\..\technology.wav"
+                               };
+    public static SoundPlayer backgroundMusic;
 
     static void Main()
     {
@@ -29,10 +38,11 @@ class Program
         Console.CursorVisible = false;
         Console.WriteLine();
 
-
+        //Play background music - songs by PlayOnLoop.com
+        backgroundMusic = new SoundPlayer(playlist[0]);
+        backgroundMusic.PlayLooping();
 
         //Logo
-
         PrintTelerikAcademyLogo();
 
         //The car
