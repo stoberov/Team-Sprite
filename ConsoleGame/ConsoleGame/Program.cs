@@ -17,7 +17,7 @@ class Program
         //Test vvn050
         //Hide cursor
         Console.CursorVisible = false;
-        Console.WriteLine();
+        Console.WriteLine("????");
         
         PrintTelerikAcademyLogo();
     }
