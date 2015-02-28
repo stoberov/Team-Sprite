@@ -1,9 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 
 class Program
 {
+    struct Car
+    {
+        public int x;
+        public int y;
+        public string symbol;
+        public ConsoleColor color;
+    }
+
     static void Main()
     {
         //User can setup the size of window
@@ -15,12 +24,11 @@ class Program
         Console.BufferWidth = Console.WindowWidth;
         Console.BufferHeight = Console.WindowHeight;
 
-        //Test vvn052
-        //Test vvn053
+
         //Hide cursor
         Console.CursorVisible = false;
         Console.WriteLine();
-        
+
 
 
         //Logo
@@ -35,8 +43,13 @@ class Program
         int y = Console.WindowHeight - car.Length;
         int x = 10;
 
+        Random cordinates = new Random();
+        List<Car> cars = new List<Car>();
+        int b = 0;
+
         while (true)
         {
+
             Console.Clear();
 
             if (Console.KeyAvailable)
@@ -45,17 +58,57 @@ class Program
                 while (Console.KeyAvailable) Console.ReadKey(true);
                 if (pressed.Key == ConsoleKey.LeftArrow)
                 {
-                    
+
                     if (x > 5) --x;
 
 
                 }
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
-                    if (x < Console.WindowWidth-5- car.Length * 2) ++x;
+                    if (x < Console.WindowWidth - 5 - car.Length * 2) ++x;
                 }
             }
+
+            if (b % 7 == 0)
+            {
+                Car otherCar = new Car();
+                otherCar.color = ConsoleColor.Blue;
+                otherCar.x = cordinates.Next(5, 45);
+                otherCar.y = 10;
+                otherCar.symbol = "O";
+
+                cars.Add(otherCar);
+            }
+            b++;
+            //Thread.Sleep(50);
+
+            List<Car> newList = new List<Car>();
+            for (int i = 0; i < cars.Count; i++)
+            {
+                Car oldCar = cars[i];
+                Car newCar = new Car();
+                newCar.x = oldCar.x;
+                newCar.y = oldCar.y + 1;
+                newCar.symbol = oldCar.symbol;
+                newCar.color = oldCar.color;
+                if (newCar.y < 50)
+                {
+                    newList.Add(newCar);
+                }
+
+            }
+            cars = newList;
+            Console.Clear();
+
             PrintCar(car, y, x);
+            //Thread.Sleep(100);
+
+
+            foreach (Car carss in cars)
+            {
+                PrintCar(carss.x, carss.y, carss.symbol, carss.color);
+            }
+
             Thread.Sleep(100);
 
             //Hide cursor
@@ -63,6 +116,13 @@ class Program
 
 
         }
+    }
+
+    static void PrintCar(int x, int y, string symbol, ConsoleColor color)
+    {
+
+        Console.SetCursorPosition(x, y);
+        Console.WriteLine(symbol);
     }
 
     private static void PrintCar(string[] car, int y, int x)
