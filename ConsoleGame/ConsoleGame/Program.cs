@@ -18,7 +18,7 @@ class Program
         //Test vvn053
         //Hide cursor
         Console.CursorVisible = false;
-        Console.WriteLine();
+        Console.WriteLine("????");
         
         PrintTelerikAcademyLogo();
     }
@@ -57,6 +57,7 @@ class Program
 
         // Clean the console to begin the game
         Console.Clear();
-        Console.WriteLine("iliev");
     }
+
+    
 }
