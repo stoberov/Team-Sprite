@@ -5,7 +5,7 @@ using System.Threading;
 
 class Program
 {
-    struct Car
+    struct Holes
     {
         public int x;
         public int y;
@@ -44,7 +44,7 @@ class Program
         int x = 10;
 
         Random cordinates = new Random();
-        List<Car> cars = new List<Car>();
+        List<Holes> holes = new List<Holes>();
         int b = 0;
 
         while (true)
@@ -71,22 +71,22 @@ class Program
 
             if (b % 7 == 0)
             {
-                Car otherCar = new Car();
+                Holes otherCar = new Holes();
                 otherCar.color = ConsoleColor.Blue;
                 otherCar.x = cordinates.Next(5, 45);
                 otherCar.y = 10;
                 otherCar.symbol = "O";
 
-                cars.Add(otherCar);
+                holes.Add(otherCar);
             }
             b++;
             //Thread.Sleep(50);
 
-            List<Car> newList = new List<Car>();
-            for (int i = 0; i < cars.Count; i++)
+            List<Holes> newList = new List<Holes>();
+            for (int i = 0; i < holes.Count; i++)
             {
-                Car oldCar = cars[i];
-                Car newCar = new Car();
+                Holes oldCar = holes[i];
+                Holes newCar = new Holes();
                 newCar.x = oldCar.x;
                 newCar.y = oldCar.y + 1;
                 newCar.symbol = oldCar.symbol;
@@ -97,16 +97,16 @@ class Program
                 }
 
             }
-            cars = newList;
+            holes = newList;
             Console.Clear();
 
             PrintCar(car, y, x);
             //Thread.Sleep(100);
 
 
-            foreach (Car carss in cars)
+            foreach (Holes hole in holes)
             {
-                PrintCar(carss.x, carss.y, carss.symbol, carss.color);
+                PrintHole(hole.x, hole.y, hole.symbol, hole.color);
             }
 
             Thread.Sleep(100);
@@ -118,7 +118,7 @@ class Program
         }
     }
 
-    static void PrintCar(int x, int y, string symbol, ConsoleColor color)
+    static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
 
         Console.SetCursorPosition(x, y);
