@@ -31,7 +31,7 @@ class Program
         //Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
         Console.BufferHeight = Console.WindowHeight;
-
+        //Test vvn050
         //Hide cursor
         Console.CursorVisible = false;
         Console.WriteLine();
