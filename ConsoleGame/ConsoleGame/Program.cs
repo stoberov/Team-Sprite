@@ -56,6 +56,8 @@ class Program
 
         // Clean the console to begin the game
         Console.Clear();
+
+        Console.WriteLine("Stoyan");
     }
 
     
