@@ -13,7 +13,7 @@ public class Program
         public string symbol;
         public ConsoleColor color;
     }
-    
+
     // Variables
     private static string[] playlist = {
                                    @"..\..\purple-hills-short.wav",
@@ -25,20 +25,31 @@ public class Program
     private static bool mainMenu = true;
     private static bool exitGame = false;
 
+
+    static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = color;
+        Console.Write(str);
+    }
     static void Main()
     {
         InitialSetUp();
         PrintTelerikAcademyLogo();
         DrawInitialScreen();
 
+        int livesCount = 5;
+        int speed = 50;
+        int acceleration = 50;
+
         //The car
         string[] car = { "     _ ",
-                       "  0=[_]=0",
+                         "  0=[_]=0",
                          "    /T\\ " ,
-                        "   |(o)|",
-                     " []=\\_/=[]",
-                        "   __V__",
-                       "  '-----' " };
+                         "   |(o)|",
+                        " []=\\_/=[]",
+                         "   __V__",
+                         "  '-----' " };
 
         int y = Console.WindowHeight - car.Length;
         int x = 10;
@@ -51,6 +62,8 @@ public class Program
         {
             if (exitGame)
             {
+                PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.White);
+                Console.WriteLine();
                 return;
             }
 
@@ -78,7 +91,7 @@ public class Program
                 otherCar.color = ConsoleColor.Blue;
                 otherCar.x = cordinates.Next(5, 45);
                 otherCar.y = 10;
-                otherCar.symbol = "O";
+                otherCar.symbol = "(..)";
 
                 holes.Add(otherCar);
             }
@@ -99,23 +112,37 @@ public class Program
                 {
                     newList.Add(newCar);
                 }
+
+                if (livesCount <= 0)
+                {
+                    PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
+                    PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
+                    Console.ReadLine();
+                    Environment.Exit(0);
+                }
+
+                holes = newList;
+                Console.Clear();
+
+                PrintCar(car, y, x);
+
+                foreach (Holes hole in holes)
+                {
+                    PrintHole(hole.x, hole.y, hole.symbol, hole.color);
+                }
+
+                PrintStringOnPosition(35, 4, "Lives: " + livesCount, ConsoleColor.White);
+                PrintStringOnPosition(35, 5, "Speed: " + speed, ConsoleColor.White);
+                PrintStringOnPosition(30, 6, "Acceleration: " + acceleration, ConsoleColor.White);
+
+                Thread.Sleep(100);
+
+                //Hide cursor
+                Console.CursorVisible = false;
+
             }
-
-            holes = newList;
-            Console.Clear();
-
-            PrintCar(car, y, x);
-
-            foreach (Holes hole in holes)
-            {
-                PrintHole(hole.x, hole.y, hole.symbol, hole.color);
-            }
-
-            Thread.Sleep(100);
-
-            //Hide cursor
-            Console.CursorVisible = false;
         }
+
     }
 
     private static void InitialSetUp()
@@ -204,6 +231,8 @@ public class Program
             }
         }
     }
+
+
 
     private static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
