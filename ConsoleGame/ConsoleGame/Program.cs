@@ -21,29 +21,14 @@ class Program
                                         @"..\..\technology.wav"
                                };
     public static SoundPlayer backgroundMusic;
+    public static bool mainMenu = true;
+    public static bool exitGame = false;
 
     static void Main()
     {
-        //User can setup the size of window
-
-        Console.BufferHeight = Console.WindowHeight = 50;
-        Console.BufferWidth = Console.WindowWidth = 50;
-
-        //Remove Scrolls
-        Console.BufferWidth = Console.WindowWidth;
-        Console.BufferHeight = Console.WindowHeight;
-
-
-        //Hide cursor
-        Console.CursorVisible = false;
-        Console.WriteLine();
-
-        //Play background music - songs by PlayOnLoop.com
-        backgroundMusic = new SoundPlayer(playlist[0]);
-        backgroundMusic.PlayLooping();
-
-        //Logo
+        InitialSetUp();
         PrintTelerikAcademyLogo();
+        DrawInitialScreen();
 
         //The car
         string[] car = {   "[]|[]",
@@ -59,6 +44,10 @@ class Program
 
         while (true)
         {
+            if (exitGame)
+            {
+                return;
+            }
 
             Console.Clear();
 
@@ -128,6 +117,93 @@ class Program
         }
     }
 
+    private static void InitialSetUp()
+    {
+        //Set window size
+        Console.BufferHeight = Console.WindowHeight = 50;
+        Console.BufferWidth = Console.WindowWidth = 80;
+
+        //Remove Scrolls
+        Console.BufferWidth = Console.WindowWidth;
+        Console.BufferHeight = Console.WindowHeight;
+
+        //Hide cursor
+        Console.CursorVisible = false;
+        Console.WriteLine();
+
+        //Play background music - songs by PlayOnLoop.com
+        backgroundMusic = new SoundPlayer(playlist[0]);
+        backgroundMusic.PlayLooping();
+    }
+
+    private static void PrintTelerikAcademyLogo()
+    {
+        StreamReader logoTelerikAcademy = new StreamReader(@"..\..\telerik-logo.txt");
+        using (logoTelerikAcademy)
+        {
+            string line = logoTelerikAcademy.ReadLine();
+            int lineNum = 0;
+            while (line != null)
+            {
+                Console.SetCursorPosition(16, lineNum);
+                Console.ForegroundColor = ConsoleColor.Red;
+
+                // Print the logo slowly
+                Thread.Sleep(100);
+
+                Console.WriteLine(line);
+                line = logoTelerikAcademy.ReadLine();
+                lineNum++;
+            }
+
+            Console.SetCursorPosition(32, lineNum + 2);
+            Console.WriteLine("Telerik Academy");
+            Console.SetCursorPosition(26, lineNum + 3);
+            Console.WriteLine("A Console Game by Team Sprite");
+        }
+
+        // Pause the logo for 3secs
+        Thread.Sleep(3000);
+    }
+
+    private static void DrawInitialScreen()
+    {
+        // Clean the console to begin the game
+        Console.Clear();
+
+        StreamReader introMenu = new StreamReader(@"..\..\introMenu.txt");
+
+        using (introMenu)
+        {
+            string line = introMenu.ReadLine();
+            int lineNum = 0;
+
+            while (line != null)
+            {
+                Console.SetCursorPosition(3, lineNum);
+                Console.ForegroundColor = ConsoleColor.Green;
+
+                // get the menu slowly printed on the console
+                Thread.Sleep(10);
+                Console.WriteLine(line);
+
+                line = introMenu.ReadLine();
+                lineNum++;
+            }
+
+            ConsoleKeyInfo pressedKey = Console.ReadKey(true);
+
+            if (pressedKey.Key == ConsoleKey.E)
+            {
+                exitGame = true;
+            }
+            else if (pressedKey.Key == ConsoleKey.N)
+            {
+                mainMenu = false;
+            }
+        }
+    }
+
     static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
 
@@ -143,45 +219,4 @@ class Program
             Console.Write(car[i]);
         }
     }
-
-    static void PrintTelerikAcademyLogo()
-    {
-        StreamReader logoTelerikAcademy = new StreamReader(@"..\..\telerik-logo.txt");
-
-        using (logoTelerikAcademy)
-        {
-            string line = logoTelerikAcademy.ReadLine();
-            int lineNum = 0;
-
-            while (line != null)
-            {
-                Console.SetCursorPosition(15, lineNum);
-                Console.ForegroundColor = ConsoleColor.Blue;
-
-                // Print the logo slowly
-                Thread.Sleep(100);
-                Console.WriteLine(line);
-
-                line = logoTelerikAcademy.ReadLine();
-                lineNum++;
-            }
-
-            Console.SetCursorPosition(30, lineNum);
-            Console.WriteLine("Telerik Academy");
-
-            Console.SetCursorPosition(22, lineNum + 1);
-            Console.WriteLine("A Console Game by Team Sprite");
-
-            Console.Clear();
-        }
-
-        // Pause the logo for 3secs
-        Thread.Sleep(300);
-
-        // Clean the console to begin the game
-        Console.Clear();
-
-    }
-
-
 }

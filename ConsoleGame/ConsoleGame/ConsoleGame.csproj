@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="house_impact.wav" />
+    <Content Include="introMenu.txt" />
     <Content Include="purple-hills-short.wav" />
     <Content Include="technology.wav" />
     <Content Include="telerik-logo.txt" />
