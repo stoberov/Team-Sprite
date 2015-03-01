@@ -31,9 +31,13 @@ class Program
         DrawInitialScreen();
 
         //The car
-        string[] car = {   "[]|[]",
-                               "  |  ",
-                              "[]|[]" };
+        string[] car = { "     _ ",
+                       "  0=[_]=0",
+                         "    /T\\ " ,
+                        "   |(o)|",
+                     " []=\\_/=[]",
+                        "   __V__",
+                       "  '-----' " };
 
         int y = Console.WindowHeight - car.Length;
         int x = 10;
