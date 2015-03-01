@@ -4,9 +4,9 @@ using System.IO;
 using System.Media;
 using System.Threading;
 
-class Program
+public class Program
 {
-    struct Holes
+    private struct Holes
     {
         public int x;
         public int y;
@@ -15,14 +15,15 @@ class Program
     }
     
     // Variables
-    static string[] playlist = {
+    private static string[] playlist = {
                                    @"..\..\purple-hills-short.wav",
                                         @"..\..\house_impact.wav",
                                         @"..\..\technology.wav"
                                };
-    public static SoundPlayer backgroundMusic;
-    public static bool mainMenu = true;
-    public static bool exitGame = false;
+
+    private static SoundPlayer backgroundMusic;
+    private static bool mainMenu = true;
+    private static bool exitGame = false;
 
     static void Main()
     {
@@ -58,13 +59,12 @@ class Program
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo pressed = Console.ReadKey(true);
+
                 while (Console.KeyAvailable) Console.ReadKey(true);
+
                 if (pressed.Key == ConsoleKey.LeftArrow)
                 {
-
                     if (x > 5) --x;
-
-
                 }
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
@@ -82,9 +82,10 @@ class Program
 
                 holes.Add(otherCar);
             }
-            b++;
-            //Thread.Sleep(50);
 
+            b++;
+
+            //Thread.Sleep(50);
             List<Holes> newList = new List<Holes>();
             for (int i = 0; i < holes.Count; i++)
             {
@@ -98,14 +99,12 @@ class Program
                 {
                     newList.Add(newCar);
                 }
-
             }
+
             holes = newList;
             Console.Clear();
 
             PrintCar(car, y, x);
-            //Thread.Sleep(100);
-
 
             foreach (Holes hole in holes)
             {
@@ -116,8 +115,6 @@ class Program
 
             //Hide cursor
             Console.CursorVisible = false;
-
-
         }
     }
 
@@ -208,9 +205,8 @@ class Program
         }
     }
 
-    static void PrintHole(int x, int y, string symbol, ConsoleColor color)
+    private static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
-
         Console.SetCursorPosition(x, y);
         Console.WriteLine(symbol);
     }

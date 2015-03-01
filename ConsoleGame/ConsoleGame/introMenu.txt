@@ -1,0 +1,23 @@
+﻿#######################################################################
+ _   _  _____  _      _____   _____  _____  _____   ___  ______  _____ 
+| | | ||  _  || |    |  ___| |  ___|/  ___|/  __ \ / _ \ | ___ \|  ___|
+| |_| || | | || |    | |__   | |__  \ `--. | /  \// /_\ \| |_/ /| |__  
+|  _  || | | || |    |  __|  |  __|  `--. \| |    |  _  ||  __/ |  __| 
+| | | |\ \_/ /| |____| |___  | |___ /\__/ /| \__/\| | | || |    | |___ 
+\_| |_/ \___/ \_____/\____/  \____/ \____/  \____/\_| |_/\_|    \____/ 
+
+#######################################################################
+
+Welcome to Bulgaria - a land of roses, IT developers and bumpy roads! 
+
+HOLE ESCAPE is an arcade game, based on the classic CARS game, which
+puts you behind the gevreka of Pesho's car. Pesho has just kacnal
+from his brigada in the Shtatite and bought Golf 3-ka. He is now
+working as a driver for UBER SOFIA and needs to build a positive 
+Customer Satisfaction Rating. Help him manevrira the car away from all
+the terrible crateri on the road, so his passengers travel pleasantly.
+
+#######################################################################
+
+To start a new game press N
+To exit press E
