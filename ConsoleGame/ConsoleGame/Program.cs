@@ -74,11 +74,11 @@ public class Program
 
                 if (pressed.Key == ConsoleKey.LeftArrow)
                 {
-                    if (x > 5) --x;
+                    if (x > 0) --x;
                 }
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
-                    if (x < Console.WindowWidth - 5 - car.Length * 2) ++x;
+                    if (x < Console.WindowWidth - 30 - car.Length * 2) ++x;
                 }
                 else if (pressed.Key == ConsoleKey.E)
                 {
@@ -111,8 +111,8 @@ public class Program
             for (int i = 0; i < numHoles.Next(1, 3); i++)
             {
                 Holes newHole = new Holes();
-                newHole.x = cordinates.Next(5, 45);
-                newHole.y = 10;
+                newHole.x = cordinates.Next(0, 35);
+                newHole.y = 0;
                 newHole.symbol = "((!))!((!))";
                 holes.Add(newHole);
             }
