@@ -25,8 +25,8 @@ public class Program
     public static bool mute = false;
     private static bool levelReset = false;
     public static int livesCount = 5;
-    public static int speed = 50;
-    public static int acceleration = 50;
+    public static int score = 100;
+    public static int speed = 0;
     public static DateTime start = DateTime.Now;
 
     static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
@@ -56,7 +56,7 @@ public class Program
         {
             if (exitGame)
             {
-                PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.White);
+                PrintStringOnPosition(30, 25, "You Failed Pesho!!!", ConsoleColor.White);
                 Console.WriteLine();
                 return;
             }
@@ -126,22 +126,39 @@ public class Program
                 newHole.y = oldHole.y + 1;
                 newHole.symbol = oldHole.symbol;
                 newHole.color = oldHole.color;
-                if (newHole.y < 50)
+                if (newHole.y < Console.WindowHeight)
                 {
                     newList.Add(newHole);
                 }
                 if (newHole.symbol == "((!))!((!))" && oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 11) || (x < oldHole.x + oldHole.symbol.Length - 2 && x > oldHole.x)))
                 {
                     livesCount--;
+                    score = score - 100;
+                    speed = speed - 50;
+                }
+                else
+                {
+                    speed++;
+                    score++;
+                }
+                if (speed > 200)
+                {
+                    speed = 200;
+                }
+                else if (speed < 0)
+                {
+                    speed = 0;
                 }
                 if (livesCount < 0)
                 {
+                    PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
                     PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
                     PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
                 holes = newList;
+
                 Console.Clear();
 
                 PrintCar(car, y, x);
@@ -153,7 +170,7 @@ public class Program
 
                 Infoboard(start);
 
-                Thread.Sleep(100);
+                Thread.Sleep(250 - speed);
             }
         }
 
@@ -248,10 +265,9 @@ public class Program
 
     static void Infoboard(DateTime start)
     {
-
+        PrintStringOnPosition(50, 0, "Score: " + score, ConsoleColor.Green);
         PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
         PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Green);
-        PrintStringOnPosition(50, 3, "Acceleration: " + acceleration, ConsoleColor.Green);
 
         TimeSpan time = (DateTime.Now - start);
 
