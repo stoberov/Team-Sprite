@@ -280,7 +280,7 @@ public class Program
     {
         Console.ForegroundColor = ConsoleColor.DarkMagenta;
         Console.SetCursorPosition(x, y);
-        Console.WriteLine(symbol);
+        Console.Write(symbol);
     }
 
     private static void PrintCar(string[] car, int y, int x)
