@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Media;
@@ -13,14 +13,12 @@ public class Program
         public string symbol;
         public ConsoleColor color;
     }
-
     // Variables
     private static string[] playlist = {
                                    @"..\..\purple-hills-short.wav",
                                         @"..\..\house_impact.wav",
                                         @"..\..\technology.wav"
                                };
-
     private static SoundPlayer backgroundMusic;
     private static bool mainMenu = true;
     private static bool exitGame = false;
@@ -30,7 +28,6 @@ public class Program
     public static int speed = 50;
     public static int acceleration = 50;
     public static DateTime start = DateTime.Now;
-
 
     static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
     {
@@ -43,26 +40,18 @@ public class Program
         InitialSetUp();
         PrintTelerikAcademyLogo();
         DrawInitialScreen();
-        
-
-
-
         //The car
-        string[] car = { "     _ ",
-                         "  0=[_]=0",
-                         "    /T\\ " ,
-                         "   |(o)|",
-                        " []=\\_/=[]",
-                         "   __V__",
-                         "  '-----' " };
-
+        string[] car = { "      _ ",
+                         "  []=[_]=[]",
+                         "     /T\\ " ,
+                         "    |(o)|",
+                        "  []=\\_/=[]",
+                         "    __V__",
+                         "   '-----' " };
         int y = Console.WindowHeight - car.Length;
         int x = 10;
-
         Random cordinates = new Random();
         List<Holes> holes = new List<Holes>();
-        int b = 0;
-
         while (true)
         {
             if (exitGame)
@@ -71,14 +60,12 @@ public class Program
                 Console.WriteLine();
                 return;
             }
-
             if (levelReset)
             {
                 start = DateTime.Now;
                 levelReset = false;
                 continue;
             }
-
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo pressed = Console.ReadKey(true);
@@ -120,35 +107,33 @@ public class Program
                     backgroundMusic.PlayLooping();
                 }
             }
-
-            if (b % 7 == 0)
+            Random numHoles = new Random();
+            for (int i = 0; i < numHoles.Next(1, 3); i++)
             {
-                Holes otherCar = new Holes();
-                otherCar.color = ConsoleColor.Blue;
-                otherCar.x = cordinates.Next(5, 45);
-                otherCar.y = 10;
-                otherCar.symbol = "(..)";
-
-                holes.Add(otherCar);
+                Holes newHole = new Holes();
+                newHole.x = cordinates.Next(5, 45);
+                newHole.y = 10;
+                newHole.symbol = "((!))!((!))";
+                holes.Add(newHole);
             }
-
-            b++;
-
             //Thread.Sleep(50);
             List<Holes> newList = new List<Holes>();
             for (int i = 0; i < holes.Count; i++)
             {
-                Holes oldCar = holes[i];
-                Holes newCar = new Holes();
-                newCar.x = oldCar.x;
-                newCar.y = oldCar.y + 1;
-                newCar.symbol = oldCar.symbol;
-                newCar.color = oldCar.color;
-                if (newCar.y < 50)
+                Holes oldHole = holes[i];
+                Holes newHole = new Holes();
+                newHole.x = oldHole.x;
+                newHole.y = oldHole.y + 1;
+                newHole.symbol = oldHole.symbol;
+                newHole.color = oldHole.color;
+                if (newHole.y < 50)
                 {
-                    newList.Add(newCar);
+                    newList.Add(newHole);
                 }
-
+                if (newHole.symbol == "((!))!((!))" && oldHole.y >= y && ((oldHole.x > x && oldHole.x < x + 10) || (x < oldHole.x + oldHole.symbol.Length - 1 && x > oldHole.x)))
+                {
+                    livesCount--;
+                }
                 if (livesCount <= 0)
                 {
                     PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
@@ -156,8 +141,6 @@ public class Program
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
-
-
                 holes = newList;
                 Console.Clear();
 
@@ -171,10 +154,6 @@ public class Program
                 Infoboard(start);
 
                 Thread.Sleep(100);
-
-                //Hide cursor
-                Console.CursorVisible = false;
-
             }
         }
 
@@ -270,9 +249,9 @@ public class Program
     static void Infoboard(DateTime start)
     {
 
-        PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Cyan);
-        PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Cyan);
-        PrintStringOnPosition(50, 3, "Acceleration: " + acceleration, ConsoleColor.Cyan);
+        PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
+        PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Green);
+        PrintStringOnPosition(50, 3, "Acceleration: " + acceleration, ConsoleColor.Green);
 
         TimeSpan time = (DateTime.Now - start);
 
@@ -299,6 +278,7 @@ public class Program
 
     private static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
+        Console.ForegroundColor = ConsoleColor.DarkMagenta;
         Console.SetCursorPosition(x, y);
         Console.WriteLine(symbol);
     }
@@ -307,6 +287,7 @@ public class Program
     {
         for (int i = 0; i < car.Length; i++)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.SetCursorPosition(x, y + i);
             Console.Write(car[i]);
         }
