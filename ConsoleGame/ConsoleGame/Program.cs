@@ -134,7 +134,7 @@ public class Program
                 {
                     livesCount--;
                 }
-              else  if (livesCount <= 0)
+                if (livesCount <= 0)
                 {
                     PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
                     PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
