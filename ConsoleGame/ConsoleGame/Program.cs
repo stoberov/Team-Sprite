@@ -130,11 +130,11 @@ public class Program
                 {
                     newList.Add(newHole);
                 }
-                if (newHole.symbol == "((!))!((!))" && oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 10) || (x < oldHole.x + oldHole.symbol.Length - 1 && x > oldHole.x)))
+                if (newHole.symbol == "((!))!((!))" && oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 11) || (x < oldHole.x + oldHole.symbol.Length - 2 && x > oldHole.x)))
                 {
                     livesCount--;
                 }
-                if (livesCount <= 0)
+                if (livesCount < 0)
                 {
                     PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
                     PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
