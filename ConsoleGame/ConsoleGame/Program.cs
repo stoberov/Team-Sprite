@@ -111,10 +111,13 @@ public class Program
             for (int i = 0; i < numHoles.Next(1, 3); i++)
             {
                 Holes newHole = new Holes();
-                newHole.x = cordinates.Next(0, 35);
+                newHole.x = cordinates.Next(0, 40);
                 newHole.y = 0;
                 newHole.symbol = "((!))!((!))";
-                holes.Add(newHole);
+                if (newHole.x % 12 == 0)
+                {
+                    holes.Add(newHole);
+                }
             }
             //Thread.Sleep(50);
             List<Holes> newList = new List<Holes>();
@@ -130,7 +133,7 @@ public class Program
                 {
                     newList.Add(newHole);
                 }
-                if (newHole.symbol == "((!))!((!))" && oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 11) || (x < oldHole.x + oldHole.symbol.Length - 2 && x > oldHole.x)))
+                if (oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 11) || (x < oldHole.x + oldHole.symbol.Length - 2 && x > oldHole.x)))
                 {
                     livesCount--;
                     score = score - 100;
@@ -157,6 +160,7 @@ public class Program
                     Console.ReadLine();
                     Environment.Exit(0);
                 }
+            }
                 holes = newList;
 
                 Console.Clear();
@@ -171,7 +175,6 @@ public class Program
                 Infoboard(start);
 
                 Thread.Sleep(250 - speed);
-            }
         }
 
     }
