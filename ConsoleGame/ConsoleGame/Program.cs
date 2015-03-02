@@ -24,6 +24,12 @@ public class Program
     private static SoundPlayer backgroundMusic;
     private static bool mainMenu = true;
     private static bool exitGame = false;
+    public static bool mute = false;
+    private static bool levelReset = false;
+    public static int livesCount = 5;
+    public static int speed = 50;
+    public static int acceleration = 50;
+    public static DateTime start = DateTime.Now;
 
 
     static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
@@ -37,10 +43,9 @@ public class Program
         InitialSetUp();
         PrintTelerikAcademyLogo();
         DrawInitialScreen();
+        
 
-        int livesCount = 5;
-        int speed = 50;
-        int acceleration = 50;
+
 
         //The car
         string[] car = { "     _ ",
@@ -67,7 +72,12 @@ public class Program
                 return;
             }
 
-            Console.Clear();
+            if (levelReset)
+            {
+                start = DateTime.Now;
+                levelReset = false;
+                continue;
+            }
 
             if (Console.KeyAvailable)
             {
@@ -82,6 +92,32 @@ public class Program
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
                     if (x < Console.WindowWidth - 5 - car.Length * 2) ++x;
+                }
+                else if (pressed.Key == ConsoleKey.E)
+                {
+                    exitGame = true;
+                }
+                else if (pressed.Key == ConsoleKey.R)
+                {
+                    levelReset = true;
+                }
+                else if (pressed.Key == ConsoleKey.M)
+                {
+                    backgroundMusic.Stop();
+                    mute = true;
+                }
+                else if (pressed.Key == ConsoleKey.S)
+                {
+                    backgroundMusic.PlayLooping();
+                    mute = false;
+                }
+                else if (pressed.Key == ConsoleKey.D1 ||
+                     pressed.Key == ConsoleKey.D2 ||
+                     pressed.Key == ConsoleKey.D0)
+                {
+                    backgroundMusic.Stop();
+                    backgroundMusic.SoundLocation = playlist[int.Parse(pressed.KeyChar.ToString())];
+                    backgroundMusic.PlayLooping();
                 }
             }
 
@@ -121,6 +157,7 @@ public class Program
                     Environment.Exit(0);
                 }
 
+
                 holes = newList;
                 Console.Clear();
 
@@ -131,9 +168,7 @@ public class Program
                     PrintHole(hole.x, hole.y, hole.symbol, hole.color);
                 }
 
-                PrintStringOnPosition(35, 4, "Lives: " + livesCount, ConsoleColor.White);
-                PrintStringOnPosition(35, 5, "Speed: " + speed, ConsoleColor.White);
-                PrintStringOnPosition(30, 6, "Acceleration: " + acceleration, ConsoleColor.White);
+                Infoboard(start);
 
                 Thread.Sleep(100);
 
@@ -232,7 +267,35 @@ public class Program
         }
     }
 
+    static void Infoboard(DateTime start)
+    {
 
+        PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Cyan);
+        PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Cyan);
+        PrintStringOnPosition(50, 3, "Acceleration: " + acceleration, ConsoleColor.Cyan);
+
+        TimeSpan time = (DateTime.Now - start);
+
+        Console.SetCursorPosition(50, 4);
+        Console.WriteLine("Time Elapsed: {0:mm\\:ss}", time);
+        PrintOnPosition(50, 6, "<R> Reset Level", ConsoleColor.Cyan);
+        PrintOnPosition(50, 9, new string('-', 15), ConsoleColor.Cyan);
+        PrintOnPosition(50, 10, (mute ? "<S> Turn ON Music" :
+            "<M> Mute Music"), ConsoleColor.Cyan);
+        PrintOnPosition(50, 11, new string('-', 15), ConsoleColor.Cyan);
+        PrintOnPosition(50, 12, "Playlist", ConsoleColor.Cyan);
+        PrintOnPosition(50, 13, "<0><1><2>", ConsoleColor.Cyan);
+        PrintOnPosition(50, 14, new string('-', 15), ConsoleColor.Cyan);
+        PrintOnPosition(50, 16, "<E> Exit Game", ConsoleColor.Cyan);
+    }
+
+    //Overload for string
+    static void PrintOnPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = color;
+        Console.Write(c);
+    }
 
     private static void PrintHole(int x, int y, string symbol, ConsoleColor color)
     {
