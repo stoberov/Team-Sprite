@@ -114,7 +114,7 @@ public class Program
                 newHole.x = cordinates.Next(0, 40);
                 newHole.y = 0;
                 newHole.symbol = "((!))!((!))";
-                if (newHole.x % 12 == 0)
+                if (newHole.x % 19 == 0)
                 {
                     holes.Add(newHole);
                 }
