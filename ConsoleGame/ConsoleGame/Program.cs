@@ -6,49 +6,47 @@ using System.Threading;
 
 public class Program
 {
-    private struct Holes
-    {
-        public int x;
-        public int y;
-        public string symbol;
-        public ConsoleColor color;
-    }
     // Variables
-    private static string[] playlist = {
+    private static string[] playlist = 
+    {
                                    @"..\..\purple-hills-short.wav",
                                         @"..\..\house_impact.wav",
                                         @"..\..\technology.wav"
-                               };
+    };
+
     private static SoundPlayer backgroundMusic;
-
     private static bool exitGame = false;
-    public static bool mute = false;
+    private static bool mute = false;
     private static bool levelReset = false;
-    public static int livesCount = 5;
-    public static int score = 100;
-    public static int speed = 0;
-    public static DateTime start = DateTime.Now;
+    private static int livesCount = 5;
+    private static int score = 100;
+    private static int speed = 0;
+    private static DateTime start = DateTime.Now;
 
-    static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
+    private static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
     {
         Console.SetCursorPosition(x, y);
         Console.ForegroundColor = color;
         Console.Write(str);
     }
 
-    static void Main()
+    private static void Main()
     {
         InitialSetUp();
         PrintTelerikAcademyLogo();
         DrawInitialScreen();
-        //The car
-        string[] car = { "      _ ",
+
+        // The car
+        string[] car = 
+        {
+                           "      _ ",
                          "  []=[_]=[]",
                          "     /T\\ " ,
                          "    |(o)|",
                         "  []=\\_/=[]",
                          "    __V__",
-                         "   '-----' " };
+                         "   '-----' " 
+                       };
         int y = Console.WindowHeight - car.Length;
         int x = 10;
         Random cordinates = new Random();
@@ -61,25 +59,36 @@ public class Program
                 Console.WriteLine();
                 return;
             }
+
             if (levelReset)
             {
                 start = DateTime.Now;
                 levelReset = false;
                 continue;
             }
+
             if (Console.KeyAvailable)
             {
                 ConsoleKeyInfo pressed = Console.ReadKey(true);
 
-                while (Console.KeyAvailable) Console.ReadKey(true);
+                while (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true);
+                }
 
                 if (pressed.Key == ConsoleKey.LeftArrow)
                 {
-                    if (x > 0) --x;
+                    if (x > 0) 
+                    {
+                        x--;
+                    }
                 }
                 else if (pressed.Key == ConsoleKey.RightArrow)
                 {
-                    if (x < Console.WindowWidth - 30 - car.Length * 2) ++x;
+                    if (x < (Console.WindowWidth - 30 - (car.Length * 2)))
+                    {
+                        x++;
+                    }
                 }
                 else if (pressed.Key == ConsoleKey.E)
                 {
@@ -108,33 +117,37 @@ public class Program
                     backgroundMusic.PlayLooping();
                 }
             }
+
             Random numHoles = new Random();
             for (int i = 0; i < numHoles.Next(1, 3); i++)
             {
                 Holes newHole = new Holes();
-                newHole.x = cordinates.Next(0, 40);
-                newHole.y = 0;
-                newHole.symbol = "(!)";
-                if (newHole.x % 12 == 0)
+                newHole.X = cordinates.Next(0, 40);
+                newHole.Y = 0;
+                newHole.Symbol = "(!)";
+                if (newHole.X % 12 == 0)
                 {
                     holes.Add(newHole);
                 }
             }
-            //Thread.Sleep(50);
+
+            // Thread.Sleep(50);
             List<Holes> newList = new List<Holes>();
             for (int i = 0; i < holes.Count; i++)
             {
                 Holes oldHole = holes[i];
                 Holes newHole = new Holes();
-                newHole.x = oldHole.x;
-                newHole.y = oldHole.y + 1;
-                newHole.symbol = oldHole.symbol;
-                newHole.color = oldHole.color;
-                if (newHole.y < Console.WindowHeight)
+                newHole.X = oldHole.X;
+                newHole.Y = oldHole.Y + 1;
+                newHole.Symbol = oldHole.Symbol;
+                newHole.Color = oldHole.Color;
+
+                if (newHole.Y < Console.WindowHeight)
                 {
                     newList.Add(newHole);
                 }
-                if (oldHole.y == y && ((oldHole.x > x && oldHole.x < x + 11) || (x < oldHole.x + oldHole.symbol.Length - 2 && x > oldHole.x)))
+
+                if (oldHole.Y == y && ((oldHole.X > x && oldHole.X < x + 11) || (x < oldHole.X + oldHole.Symbol.Length - 2 && x > oldHole.X)))
                 {
                     livesCount--;
                     score = score - 100;
@@ -145,6 +158,7 @@ public class Program
                     speed++;
                     score++;
                 }
+
                 if (speed > 200)
                 {
                     speed = 200;
@@ -153,6 +167,7 @@ public class Program
                 {
                     speed = 0;
                 }
+
                 if (livesCount < 0)
                 {
                     PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
@@ -162,6 +177,7 @@ public class Program
                     Environment.Exit(0);
                 }
             }
+
             holes = newList;
 
             Console.Clear();
@@ -170,7 +186,7 @@ public class Program
 
             foreach (Holes hole in holes)
             {
-                PrintHole(hole.x, hole.y, hole.symbol, hole.color);
+                PrintHole(hole.X, hole.Y, hole.Symbol, hole.Color);
             }
 
             Infoboard(start);
@@ -181,19 +197,19 @@ public class Program
 
     private static void InitialSetUp()
     {
-        //Set window size
+        // Set window size
         Console.BufferHeight = Console.WindowHeight = 50;
         Console.BufferWidth = Console.WindowWidth = 80;
 
-        //Remove Scrolls
+        // Remove Scrolls
         Console.BufferWidth = Console.WindowWidth;
         Console.BufferHeight = Console.WindowHeight;
 
-        //Hide cursor
+        // Hide cursor
         Console.CursorVisible = false;
         Console.WriteLine();
 
-        //Play background music - songs by PlayOnLoop.com
+        // Play background music - songs by PlayOnLoop.com
         try
         {
             backgroundMusic = new SoundPlayer(playlist[0]);
@@ -203,7 +219,6 @@ public class Program
         {
             Console.WriteLine("Only 3 songs in playlist");
         }
-
     }
 
     private static void PrintTelerikAcademyLogo()
@@ -238,8 +253,6 @@ public class Program
         {
             Console.WriteLine("Error: The file containing the logo was not found in the program's directory. Please, search for the file in other directories or create a new one");
         }
-
-
 
         // Pause the logo for 3secs
         Thread.Sleep(3000);
@@ -286,20 +299,21 @@ public class Program
         {
             PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
         }
+
         if (livesCount % 2 == 0)
         {
             PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Red);
         }
+
         PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Green);
 
-        TimeSpan time = (DateTime.Now - start);
+        TimeSpan time = DateTime.Now - start;
 
         Console.SetCursorPosition(50, 4);
         Console.WriteLine("Time Elapsed: {0:mm\\:ss}", time);
         PrintOnPosition(50, 6, "<R> Reset Level", ConsoleColor.Cyan);
         PrintOnPosition(50, 9, new string('-', 15), ConsoleColor.Cyan);
-        PrintOnPosition(50, 10, (mute ? "<S> Turn ON Music" :
-            "<M> Mute Music"), ConsoleColor.Cyan);
+        PrintOnPosition(50, 10, mute ? "<S> Turn ON Music" : "<M> Mute Music", ConsoleColor.Cyan);
         PrintOnPosition(50, 11, new string('-', 15), ConsoleColor.Cyan);
         PrintOnPosition(50, 12, "Playlist", ConsoleColor.Cyan);
         PrintOnPosition(50, 13, "<0><1><2>", ConsoleColor.Cyan);
@@ -329,5 +343,13 @@ public class Program
             Console.SetCursorPosition(x, y + i);
             Console.Write(car[i]);
         }
+    }
+
+        private struct Holes
+    {
+        public int X;
+        public int Y;
+        public string Symbol;
+        public ConsoleColor Color;
     }
 }
