@@ -115,10 +115,10 @@ public class Program
             for (int i = 0; i < numHoles.Next(1, 3); i++)
             {
                 Holes newHole = new Holes();
-                newHole.X = cordinates.Next(0, 40);
+                newHole.X = cordinates.Next(0, 50);
                 newHole.Y = 0;
                 newHole.Symbol = "(!)";
-                if (newHole.X % 12 == 0)
+                if (newHole.X % 9 == 0)
                 {
                     holes.Add(newHole);
                 }
