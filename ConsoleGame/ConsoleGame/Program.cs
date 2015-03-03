@@ -322,7 +322,7 @@ public class Program
         PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
         PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
         PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
-        Console.ReadKey();
+        Console.ReadLine();
         Environment.Exit(0);
     }
 
