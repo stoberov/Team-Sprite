@@ -25,12 +25,7 @@ public class Program
     private static Random cordinates = new Random();
     private static List<Holes> holes = new List<Holes>();
 
-    private static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
-    {
-        Console.SetCursorPosition(x, y);
-        Console.ForegroundColor = color;
-        Console.Write(str);
-    }
+    // Methods
 
     private static void Main()
     {
@@ -113,9 +108,7 @@ public class Program
                      pressed.Key == ConsoleKey.D2 ||
                      pressed.Key == ConsoleKey.D0)
                 {
-                    backgroundMusic.Stop();
-                    backgroundMusic.SoundLocation = playlist[int.Parse(pressed.KeyChar.ToString())];
-                    backgroundMusic.PlayLooping();
+                    PlaylistControls(pressed);
                 }
             }
 
@@ -318,6 +311,13 @@ public class Program
         PrintOnPosition(50, 16, "<E> Exit Game", ConsoleColor.Cyan);
     }
 
+    private static void PlaylistControls(ConsoleKeyInfo pressed)
+    {
+        backgroundMusic.Stop();
+        backgroundMusic.SoundLocation = playlist[int.Parse(pressed.KeyChar.ToString())];
+        backgroundMusic.PlayLooping();
+    }
+
     private static void GameOverScreen()
     {
         PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
@@ -325,6 +325,13 @@ public class Program
         PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
         Console.ReadLine();
         Environment.Exit(0);
+    }
+
+    private static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
+    {
+        Console.SetCursorPosition(x, y);
+        Console.ForegroundColor = color;
+        Console.Write(str);
     }
 
     private static void PrintOnPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)
