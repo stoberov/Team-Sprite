@@ -22,6 +22,8 @@ public class Program
     private static int score = 100;
     private static int speed = 0;
     private static DateTime start = DateTime.Now;
+    private static Random cordinates = new Random();
+    private static List<Holes> holes = new List<Holes>();
 
     private static void PrintStringOnPosition(int x, int y, string str, ConsoleColor color = ConsoleColor.Gray)
     {
@@ -49,8 +51,7 @@ public class Program
                        };
         int y = Console.WindowHeight - car.Length;
         int x = 10;
-        Random cordinates = new Random();
-        List<Holes> holes = new List<Holes>();
+
         while (true)
         {
             if (exitGame)
@@ -170,11 +171,7 @@ public class Program
 
                 if (livesCount < 0)
                 {
-                    PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
-                    PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
-                    PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
-                    Console.ReadLine();
-                    Environment.Exit(0);
+                    GameOverScreen();
                 }
             }
 
@@ -321,6 +318,15 @@ public class Program
         PrintOnPosition(50, 16, "<E> Exit Game", ConsoleColor.Cyan);
     }
 
+    private static void GameOverScreen()
+    {
+        PrintStringOnPosition(32, 24, "Your Score is: " + score, ConsoleColor.Red);
+        PrintStringOnPosition(35, 25, "GAME OVER!!!", ConsoleColor.Red);
+        PrintStringOnPosition(30, 26, "Press [enter] to exit", ConsoleColor.Red);
+        Console.ReadLine();
+        Environment.Exit(0);
+    }
+
     private static void PrintOnPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)
     {
         Console.SetCursorPosition(x, y);
@@ -345,7 +351,7 @@ public class Program
         }
     }
 
-        private struct Holes
+    private struct Holes
     {
         public int X;
         public int Y;
