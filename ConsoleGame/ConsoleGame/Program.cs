@@ -20,7 +20,7 @@ public class Program
                                         @"..\..\technology.wav"
                                };
     private static SoundPlayer backgroundMusic;
-    private static bool mainMenu = true;
+
     private static bool exitGame = false;
     public static bool mute = false;
     private static bool levelReset = false;
@@ -35,6 +35,7 @@ public class Program
         Console.ForegroundColor = color;
         Console.Write(str);
     }
+    
     static void Main()
     {
         InitialSetUp();
@@ -176,7 +177,6 @@ public class Program
 
                 Thread.Sleep(250 - speed);
         }
-
     }
 
     private static void InitialSetUp()
@@ -200,29 +200,38 @@ public class Program
 
     private static void PrintTelerikAcademyLogo()
     {
-        StreamReader logoTelerikAcademy = new StreamReader(@"..\..\telerik-logo.txt");
-        using (logoTelerikAcademy)
+        try
         {
-            string line = logoTelerikAcademy.ReadLine();
-            int lineNum = 0;
-            while (line != null)
+            StreamReader logoTelerikAcademy = new StreamReader(@"..\..\telerik-logo.txt");
+            using (logoTelerikAcademy)
             {
-                Console.SetCursorPosition(16, lineNum);
-                Console.ForegroundColor = ConsoleColor.Red;
+                string line = logoTelerikAcademy.ReadLine();
+                int lineNum = 0;
+                while (line != null)
+                {
+                    Console.SetCursorPosition(16, lineNum);
+                    Console.ForegroundColor = ConsoleColor.Red;
 
-                // Print the logo slowly
-                Thread.Sleep(100);
+                    // Print the logo slowly
+                    Thread.Sleep(100);
 
-                Console.WriteLine(line);
-                line = logoTelerikAcademy.ReadLine();
-                lineNum++;
+                    Console.WriteLine(line);
+                    line = logoTelerikAcademy.ReadLine();
+                    lineNum++;
+                }
+
+                Console.SetCursorPosition(32, lineNum + 2);
+                Console.WriteLine("Telerik Academy");
+                Console.SetCursorPosition(26, lineNum + 3);
+                Console.WriteLine("A Console Game by Team Sprite");
             }
-
-            Console.SetCursorPosition(32, lineNum + 2);
-            Console.WriteLine("Telerik Academy");
-            Console.SetCursorPosition(26, lineNum + 3);
-            Console.WriteLine("A Console Game by Team Sprite");
         }
+        catch (FileNotFoundException)
+        {
+            Console.WriteLine("Error: The file containing the logo was not found in the program's directory. Please, search for the file in other directories or create a new one");
+        }
+
+        
 
         // Pause the logo for 3secs
         Thread.Sleep(3000);
@@ -258,10 +267,6 @@ public class Program
             if (pressedKey.Key == ConsoleKey.E)
             {
                 exitGame = true;
-            }
-            else if (pressedKey.Key == ConsoleKey.N)
-            {
-                mainMenu = false;
             }
         }
     }
