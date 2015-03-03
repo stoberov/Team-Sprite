@@ -140,7 +140,7 @@ public class Program
                     newList.Add(newHole);
                 }
 
-                if (oldHole.Y == y && ((oldHole.X > x && oldHole.X < x + 11) || (x < oldHole.X + oldHole.Symbol.Length - 2 && x > oldHole.X)))
+                if (oldHole.Y == y && ((oldHole.X > x && oldHole.X < x + 10) || (x < oldHole.X + oldHole.Symbol.Length - 2 && x > oldHole.X)))
                 {
                     livesCount--;
                     score = score - 100;
