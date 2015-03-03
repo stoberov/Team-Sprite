@@ -35,7 +35,7 @@ public class Program
         Console.ForegroundColor = color;
         Console.Write(str);
     }
-    
+
     static void Main()
     {
         InitialSetUp();
@@ -162,20 +162,20 @@ public class Program
                     Environment.Exit(0);
                 }
             }
-                holes = newList;
+            holes = newList;
 
-                Console.Clear();
+            Console.Clear();
 
-                PrintCar(car, y, x);
+            PrintCar(car, y, x);
 
-                foreach (Holes hole in holes)
-                {
-                    PrintHole(hole.x, hole.y, hole.symbol, hole.color);
-                }
+            foreach (Holes hole in holes)
+            {
+                PrintHole(hole.x, hole.y, hole.symbol, hole.color);
+            }
 
-                Infoboard(start);
+            Infoboard(start);
 
-                Thread.Sleep(250 - speed);
+            Thread.Sleep(250 - speed);
         }
     }
 
@@ -194,8 +194,16 @@ public class Program
         Console.WriteLine();
 
         //Play background music - songs by PlayOnLoop.com
-        backgroundMusic = new SoundPlayer(playlist[0]);
-        backgroundMusic.PlayLooping();
+        try
+        {
+            backgroundMusic = new SoundPlayer(playlist[0]);
+            backgroundMusic.PlayLooping();
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Only 3 songs in playlist");
+        }
+
     }
 
     private static void PrintTelerikAcademyLogo()
@@ -231,7 +239,7 @@ public class Program
             Console.WriteLine("Error: The file containing the logo was not found in the program's directory. Please, search for the file in other directories or create a new one");
         }
 
-        
+
 
         // Pause the logo for 3secs
         Thread.Sleep(3000);
@@ -271,10 +279,10 @@ public class Program
         }
     }
 
-    static void Infoboard(DateTime start)
+    private static void Infoboard(DateTime start)
     {
         PrintStringOnPosition(50, 0, "Score: " + score, ConsoleColor.Green);
-         if (livesCount % 2 == 1)
+        if (livesCount % 2 == 1)
         {
             PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
         }
@@ -299,8 +307,7 @@ public class Program
         PrintOnPosition(50, 16, "<E> Exit Game", ConsoleColor.Cyan);
     }
 
-    //Overload for string
-    static void PrintOnPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)
+    private static void PrintOnPosition(int x, int y, string c, ConsoleColor color = ConsoleColor.White)
     {
         Console.SetCursorPosition(x, y);
         Console.ForegroundColor = color;
