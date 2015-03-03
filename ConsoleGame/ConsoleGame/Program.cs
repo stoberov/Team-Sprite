@@ -26,7 +26,6 @@ public class Program
     private static List<Holes> holes = new List<Holes>();
 
     // Methods
-
     private static void Main()
     {
         InitialSetUp();
