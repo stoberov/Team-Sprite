@@ -269,7 +269,14 @@ public class Program
     static void Infoboard(DateTime start)
     {
         PrintStringOnPosition(50, 0, "Score: " + score, ConsoleColor.Green);
-        PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
+         if (livesCount % 2 == 1)
+        {
+            PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Green);
+        }
+        if (livesCount % 2 == 0)
+        {
+            PrintStringOnPosition(50, 1, "Lives: " + livesCount, ConsoleColor.Red);
+        }
         PrintStringOnPosition(50, 2, "Speed: " + speed, ConsoleColor.Green);
 
         TimeSpan time = (DateTime.Now - start);
